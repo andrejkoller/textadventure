@@ -3,7 +3,7 @@ public class Player {
 	//X Koordinate (Horizontal) max 4
 	//Y Koordinate (Horizontal) max 4
 	//Z Koordinate (Vertikal) max 2 ---> 0 = Keller ; 1 = Erdgeschoss; 2 = Dachboden
-	private int[] positionXYZ = {4, 4, 0};		//Spieler spawnt im Keller
+	private int[] positionXYZ = {3, 2, 0};		//Spieler spawnt im Keller		//max 3,2,2		//Spawn Cords 3,2,0
 	private int health = 100;
 	private int Sanity = 100;
 	private String name = "";

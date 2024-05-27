@@ -6,7 +6,7 @@ public class Room {
 	//Z Koordinate (Vertikal) max 2 ---> 0 = Keller ; 1 = Erdgeschoss; 2 = Dachboden
 	//--------------------------------------------------------------------------------------	
 	//Attribute
-	private String verticalPath = "up";
+	private String verticalPath = "up"; //Optionen: up, down, none
 	private String verticalPathType = "ladder";
 	private int roomID = 1; 
 	
@@ -61,11 +61,6 @@ public class Room {
 	public void setVerticalPathType(String verticalpath_type) {
 		this.verticalPathType = verticalpath_type;
 	}
-	
-	
-
-	
-	
 	
 	
 	
