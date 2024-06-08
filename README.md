@@ -7,5 +7,5 @@
 <div align="left">
   <p>You are trapped in what seems to be an abandoned mansion.<br> 
     The only thing you can remember is your own name.<br> 
-    It's time to find out why you landed here.</p>
+    It's time to find out why you ended up here.</p>
 </div>
