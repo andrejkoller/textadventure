@@ -1,17 +1,10 @@
 package com.text_adventure.woodland_mansion.game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.text_adventure.woodland_mansion.helper.Delay;
 import com.text_adventure.woodland_mansion.ui.UserInputField;
 import com.text_adventure.woodland_mansion.ui.UserOutputArea;
 import com.text_adventure.woodland_mansion.ui.menu.Menu;
-import com.text_adventure.woodland_mansion.ui.menu.MenuButton;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -41,19 +34,18 @@ public class Game extends Pane {
 	private VBox gameBox = new VBox();
 	private HBox wrapButtonBox = new HBox();
 
-	private Room[][][] room = new Room[4][3][3];
+	private Room[][][] mansion = new Room[4][3][3];
+	private Room room = new Room();
+	private Player player;
+	private Delay delay = new Delay();
 
 	private int currentX = 0;
 	private int currentY = 0;
 	private int currentZ = 0;
 
-	private Delay delay = new Delay();
-	
-	private ObservableList<Enemy> enemy = FXCollections.observableArrayList(new Enemy("Ghoul", 60, 5),
-			new Enemy("Skeleton", 20, 3), new Enemy("Skeever", 1, 1), new Enemy("Green Slime", 4, 10),
-			new Enemy("Rotten Hand", 0, 0), new Enemy("Werewolf", 100, 40), new Enemy("Gargoyl", 150, 20));
-
 	public Game(BorderPane root, Scene scene) {
+		player = new Player("Andrej", 100);
+
 		wrapGameBox.setAlignment(Pos.CENTER);
 
 		createGame(wrapGameBox, root, scene);
@@ -73,13 +65,21 @@ public class Game extends Pane {
 
 		delay.setDelay(5000, () -> {
 			output.printTextLine("'and... what is my name?'");
-			output.printTextLine("");
 		});
 
 		delay.setDelay(7000, () -> {
-			output.printTextLine("Exits: North - go north, East - go east, South - go south, West - go west");
+			output.printTextLine("Ah I can remember! My name is " + player.getName() + ".");
 			output.printTextLine("");
-			output.printTextLine("Which way do you choose?");
+		});
+
+		delay.setDelay(9000, () -> {
+			output.printTextLine(
+					"You check yourself in which condition you are: " + player.getHealth() + " Lifepoints.");
+			output.printTextLine("");
+		});
+
+		delay.setDelay(11000, () -> {
+			output.printTextLine("Exits: North - go north, East - go east, South - go south, West - go west");
 		});
 
 		initCommands(input, output);
@@ -88,6 +88,9 @@ public class Game extends Pane {
 
 	public void initCommands(UserInputField input, UserOutputArea output) {
 		input.commands.put("help", new Command("help", "Print all commands", () -> runHelp(input, output)));
+
+		input.commands.put("status", new Command("status", "Player status", () -> runPlayerStats(output)));
+		input.commands.put("location", new Command("location", "Player location", () -> runPlayerLocation(output)));
 
 		input.commands.put("go north", new Command("go north", "direction", () -> runGo(0, 1, 0, output)));
 		input.commands.put("go east", new Command("go east", "direction", () -> runGo(1, 0, 0, output)));
@@ -104,10 +107,10 @@ public class Game extends Pane {
 		for (int z = 0; z < 3; z++) {
 			for (int y = 0; y < 3; y++) {
 				for (int x = 0; x < 4; x++) {
-					room[x][y][z] = new Room(x, y, z);
+					mansion[x][y][z] = new Room(x, y, z);
 
 					if (Math.random() < 0.2) {
-						room[x][y][z].spawnMonsters();
+						mansion[x][y][z].spawnMonsters();
 					}
 				}
 			}
@@ -115,7 +118,7 @@ public class Game extends Pane {
 	}
 
 	public Room getCurrentRoom() {
-		return room[currentX][currentY][currentZ];
+		return mansion[currentX][currentY][currentZ];
 	}
 
 	public void createGame(Pane parentBox, BorderPane root, Scene scene) {
@@ -166,9 +169,23 @@ public class Game extends Pane {
 		});
 	}
 
+	public void runPlayerStats(UserOutputArea output) {
+		player.printPlayerName(output);
+		player.printPlayerHealth(output);
+		player.printPlayerInventory(output);
+	}
+
+	public void runPlayerLocation(UserOutputArea output) {
+		room.getCurrentFloor(player);
+	}
+
+	public void runMove(UserOutputArea output, UserInputField input) {
+		player.move(output, input, getCurrentRoom());
+	}
+
 	public void runGo(int dx, int dy, int dz, UserOutputArea output) {
 		if (getCurrentRoom().hasMonsters()) {
-			output.printTextLine("This room still has monsters.");
+			output.printTextLine("This room has monsters! Clear it before you can proceed.");
 			return;
 		}
 
@@ -177,18 +194,6 @@ public class Game extends Pane {
 		currentZ += dz;
 
 		output.printTextLine("You are now in room: " + currentX + "," + currentY + "," + currentZ);
-
-		/*if (currentX <= 0) {
-			output.printTextLine("It seems theres is no further way on level: " + currentX);
-		}
-
-		if (currentY <= 0) {
-			output.printTextLine("It seems theres is no further way on level: " + currentY);
-		}
-
-		if (currentZ <= 0) {
-			output.printTextLine("It seems theres is no further way on level: " + currentZ);
-		}*/
 	}
 
 	public void runAttack(UserOutputArea output) {

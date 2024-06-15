@@ -1,18 +1,20 @@
 package com.text_adventure.woodland_mansion.game;
 
-public class Room {
-	//private int roomID;
+import javafx.scene.layout.Pane;
 
-	/*private String verticalPath = "up";
-	private String verticalPathType = "ladder";*/
+public class Room extends Pane {
+	private int roomID;
 
-	/*private boolean hasDoorNorth = true;
+	private String verticalPath = "up";
+	private String verticalPathType = "ladder";
+
+	private boolean hasDoorNorth = true;
 	private boolean hasDoorEast = true;
 	private boolean hasDoorSouth = true;
 	private boolean hasDoorWest = true;
 	private boolean hasHealthItem = true;
 	private boolean hasBeginnerWeapon = true;
-	private boolean hasStrongWeapon = true;*/
+	private boolean hasStrongWeapon = true;
 
 	private int x;
 	private int y;
@@ -21,17 +23,10 @@ public class Room {
 	private boolean hasMonsters = false;
 
 	public Room() {
-		//this.roomID = 1;
+		this.roomID = 1;
 	}
 
 	public Room(int x, int y, int z) {
-		/*this.roomID = id;
-		this.verticalPath = verticalPath;
-		this.verticalPathType = verticalPathType;
-		this.hasDoorNorth = doorNorth;
-		this.hasDoorEast = doorEast;
-		this.hasDoorSouth = doorSouth;
-		this.hasDoorWest = doorWest;*/
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -49,7 +44,7 @@ public class Room {
 		hasMonsters = false;
 	}
 
-	/*public String currentFloor(Player player) {
+	public String getCurrentFloor(Player player) {
 		String floor;
 
 		if (player.getPositionXYZ(2) == 2) {
@@ -65,7 +60,7 @@ public class Room {
 
 	public void lookAround(Room playerlocation, Player player) {
 
-		System.out.println("room ID: " + getRoomID() + "\nfloor: " + currentFloor(player));
+		System.out.println("room ID: " + getRoomID() + "\nfloor: " + getCurrentFloor(player));
 
 		boolean[] doorCheckArray = { hasDoorNorth, hasDoorEast, hasDoorSouth, hasDoorWest };
 		int firstdirection = 0;
@@ -202,5 +197,5 @@ public class Room {
 
 	public void setHasStrongWeapon(boolean hasStrongWeapon) {
 		this.hasStrongWeapon = hasStrongWeapon;
-	}*/
+	}
 }
