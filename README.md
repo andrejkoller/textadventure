@@ -14,8 +14,9 @@
 </div>
 <div align="left">
   <p>
-    You are trapped in what seems to be an abandoned mansion.<br> 
-    The only thing you can remember is your own name.<br> 
-    It's time to leave this uncanny place.
+    "You find yourself trapped in what appears to be an abandoned mansion,<br> with only your name in your memory."
+  </p>
+  <p>
+    "It's time to escape this eerie place."
   </p>
 </div>
