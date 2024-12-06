@@ -7,16 +7,19 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class MenuItem extends Pane {
-	private Font font = Font.loadFont(getClass()
+	private final Font font = Font.loadFont(getClass()
 			.getResourceAsStream("/fonts/PixelifySans-Regular.ttf"), 48);
-	private Text mainMenuText;
-
-	public MenuItem(MenuButton button) {
-		mainMenuText = new Text(button.getMenuButtonText());
-		mainMenuText.setFont(font);
+	private final Text mainMenuText;
+	
+	public MenuItem(String text) {
+		this.mainMenuText = new Text(text);
+		mainMenuText.setFont(this.font);
 		mainMenuText.setFill(Color.WHITE);
 		mainMenuText.setTextAlignment(TextAlignment.CENTER);
-		mainMenuText.setOnMouseClicked(button.getOnMouseClicked());
-		getChildren().add(mainMenuText);
+		getChildren().add(this.mainMenuText);
+	}
+
+	public Text getMenuItemText() {
+		return this.mainMenuText;
 	}
 }

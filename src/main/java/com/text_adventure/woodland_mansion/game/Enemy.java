@@ -1,24 +1,24 @@
 package com.text_adventure.woodland_mansion.game;
 
 public class Enemy {
-	private int monsterId;
+	private final int id;
 	private String name;
 	private int health;
 	private int damage;
 
 	public Enemy(int id, String name, int health, int damage) {
-		this.monsterId = id;
+		this.id = id;
 		this.name = name;
 		this.health = health;
 		this.damage = damage;
 	}
-	
+
 	public int getId() {
-		return monsterId;
+		return this.id;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -26,7 +26,7 @@ public class Enemy {
 	}
 
 	public int getHealth() {
-		return health;
+		return this.health;
 	}
 
 	public void setHealth(int health) {
@@ -34,7 +34,7 @@ public class Enemy {
 	}
 
 	public int getDamage() {
-		return damage;
+		return this.damage;
 	}
 
 	public void setDamage(int damage) {

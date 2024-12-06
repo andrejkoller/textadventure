@@ -20,8 +20,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Game extends Pane {
-	private Font exitButtonFont = Font.loadFont(getClass()
+public final class Game extends Pane {
+	private final Font exitButtonFont = Font.loadFont(getClass()
 			.getResourceAsStream("/fonts/PixelifySans-Regular.ttf"), 34);
 
 	private Image levelImage;
@@ -30,21 +30,21 @@ public class Game extends Pane {
 	private UserOutputArea gameUserOutput;
 	private UserInputField gameUserInput;
 
-	private HBox wrapGameBox = new HBox();
-	private VBox gameBox = new VBox();
+	private final HBox wrapGameBox = new HBox();
+	private final VBox gameBox = new VBox();
 
-	private Room[][][] mansion = new Room[10][10][10];
-	private Player player;
-	private Delay delay = new Delay();
+	private final Room[][][] mansion = new Room[10][10][10];
+	private final Player player;
+	private Delay delay;
 
 	private int currentX = 0;
 	private int currentY = 0;
 	private int currentZ = 0;
 
-	private ObservableList<Enemy> enemyData = FXCollections.observableArrayList();
+	private final ObservableList<Enemy> enemyData = FXCollections.observableArrayList();
 
 	public Game(BorderPane root, Scene scene) {
-		player = new Player("Andrej");
+		this.player = new Player("Andrej");
 		Enemy ghoul = new Enemy(1, "Ghoul", 20, 3);
 		enemyData.add(ghoul);
 
@@ -68,6 +68,8 @@ public class Game extends Pane {
 	}
 
 	public void initGame(UserOutputArea output, UserInputField input, BorderPane root, Scene scene, Enemy enemy) {
+		this.delay = new Delay();
+
 		delay.setDelay(1000, () -> {
 			output.printTextLine("You wake up in a dark, moist mansion...");
 		});
@@ -100,32 +102,32 @@ public class Game extends Pane {
 	}
 
 	public void initCommands(BorderPane root, Scene scene, UserInputField input, UserOutputArea output, Enemy enemy) {
-		input.commands.put("help", new Command("help", "Print all commands", () -> runHelp(input, output)));
+		input.commands.put("help", new Command("help", "- Print all commands -", () -> runHelp(input, output)));
 
-		input.commands.put("status", new Command("status", "Player status", () -> runPlayerStats(output)));
-		input.commands.put("location", new Command("location", "Player location", () -> runPlayerLocation(output)));
+		input.commands.put("status", new Command("status", "- Player status -", () -> runPlayerStats(output)));
+		input.commands.put("location", new Command("location", "- Player location -", () -> runPlayerLocation(output)));
 
-		input.commands.put("suicide", new Command("suicide", "Kill yourself", () -> runGameOver(root, scene)));
+		input.commands.put("suicide", new Command("suicide", "- Kill yourself -", () -> runGameOver(root, scene)));
 
-		input.commands.put("go north", new Command("go north", "direction", () -> runGo(0, 1, 0, output, enemy)));
-		input.commands.put("go east", new Command("go east", "direction", () -> runGo(1, 0, 0, output, enemy)));
-		input.commands.put("go south", new Command("go south", "direction", () -> runGo(0, -1, 0, output, enemy)));
-		input.commands.put("go west", new Command("go west", "direction", () -> runGo(-1, 0, 0, output, enemy)));
-		input.commands.put("go up", new Command("go up", "direction", () -> runGo(0, 0, 1, output, enemy)));
-		input.commands.put("go down", new Command("go down", "direction", () -> runGo(0, 0, -1, output, enemy)));
-		input.commands.put("stay here", new Command("stay here", "", () -> runGo(0, 0, 0, output, enemy)));
+		input.commands.put("go north", new Command("go north", "- Direction -", () -> runGo(0, 1, 0, output, enemy)));
+		input.commands.put("go east", new Command("go east", "- Direction -", () -> runGo(1, 0, 0, output, enemy)));
+		input.commands.put("go south", new Command("go south", "- Direction -", () -> runGo(0, -1, 0, output, enemy)));
+		input.commands.put("go west", new Command("go west", "- Direction -", () -> runGo(-1, 0, 0, output, enemy)));
+		input.commands.put("go up", new Command("go up", "- Direction -", () -> runGo(0, 0, 1, output, enemy)));
+		input.commands.put("go down", new Command("go down", "- Direction -", () -> runGo(0, 0, -1, output, enemy)));
+		input.commands.put("stay here", new Command("stay here", "- Direction -", () -> runGo(0, 0, 0, output, enemy)));
 
-		input.commands.put("attack", new Command("attack", "kill monsters", () -> runAttack(output)));
+		input.commands.put("attack", new Command("attack", "- Kill monster -", () -> runAttack(output)));
 	}
 
 	public void initRooms() {
 		for (int z = 0; z < 10; z++) {
 			for (int y = 0; y < 10; y++) {
 				for (int x = 0; x < 10; x++) {
-					mansion[x][y][z] = new Room(x, y, z);
+					this.mansion[x][y][z] = new Room(x, y, z);
 
 					if (Math.random() < 0.2) {
-						mansion[x][y][z].spawnMonster();
+						this.mansion[x][y][z].spawnMonster();
 					}
 				}
 			}
@@ -133,21 +135,21 @@ public class Game extends Pane {
 	}
 
 	public Room getCurrentRoom() {
-		return mansion[currentX][currentY][currentZ];
+		return this.mansion[currentX][currentY][currentZ];
 	}
 
 	public void createGame(Pane parentBox, BorderPane root, Scene scene) {
-		levelImage = new Image(getClass().getResource("/images/mansion.png").toExternalForm());
-		levelImageView = new ImageView(levelImage);
+		this.levelImage = new Image(getClass().getResource("/images/mansion.jpg").toExternalForm());
+		this.levelImageView = new ImageView(levelImage);
 		levelImageView.setFitHeight(550);
 		levelImageView.setFitWidth(1200);
 
-		gameUserOutput = new UserOutputArea();
-		gameUserInput = new UserInputField(gameUserOutput);
+		this.gameUserOutput = new UserOutputArea();
+		this.gameUserInput = new UserInputField(this.gameUserOutput);
 
-		var exitButton = new Text("Exit to Menu");
+		Text exitButton = new Text("Exit to Menu");
 		exitButton.setFill(Color.WHITE);
-		exitButton.setFont(exitButtonFont);
+		exitButton.setFont(this.exitButtonFont);
 		exitButton.setTranslateY(25);
 		exitButton.setOnMouseClicked(e -> {
 			getChildren().clear();
@@ -156,12 +158,11 @@ public class Game extends Pane {
 		});
 
 		gameBox.setAlignment(Pos.CENTER_LEFT);
-		gameBox.getChildren().addAll(levelImageView, gameUserOutput, gameUserInput, exitButton);
+		gameBox.getChildren().addAll(this.levelImageView, this.gameUserOutput, this.gameUserInput, exitButton);
 
-		initGame(gameUserOutput, gameUserInput, root, scene, null);
+		initGame(this.gameUserOutput, this.gameUserInput, root, scene, null);
 
-		parentBox.getChildren().add(gameBox);
-		;
+		parentBox.getChildren().add(this.gameBox);
 	}
 
 	public void runHelp(UserInputField input, UserOutputArea output) {
@@ -196,15 +197,15 @@ public class Game extends Pane {
 			Randomizer rando = new Randomizer();
 			rando.getRandomItem(enemyData);
 
-			if (rando.getRandomItem(enemyData).getName() == "Ghoul") {
+			if ("Ghoul".equals(rando.getRandomItem(enemyData).getName())) {
 				output.printTextLine("A " + enemyData.get(0).getName() + " is in the room. Kill it!");
 			}
 
-			if (rando.getRandomItem(enemyData).getName() == "Skeever") {
+			if ("Skeever".equals(rando.getRandomItem(enemyData).getName())) {
 				output.printTextLine("A " + enemyData.get(1).getName() + " is in the room. Kill it!");
 			}
 
-			if (rando.getRandomItem(enemyData).getName() == "Rotten Hand") {
+			if ("Rotten Hand".equals(rando.getRandomItem(enemyData).getName())) {
 				output.printTextLine("A " + enemyData.get(2).getName() + " is in the room. Kill it!");
 			}
 

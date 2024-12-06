@@ -12,11 +12,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 public class UserInputField extends Pane {
-	private Font gameInputFieldFont = Font.loadFont(getClass()
+	private final Font gameInputFieldFont = Font.loadFont(getClass()
 			.getResourceAsStream("/fonts/PixelifySans-Regular.ttf"), 28);
-
-	private Image inputCursor = new Image(getClass().getResource("/icons/cursor_pen.png").toExternalForm());
-
+	private final Image inputCursor = new Image(getClass().getResource("/icons/cursor_pen.png").toExternalForm());
 	private TextField input;
 	private String inputText;
 
@@ -24,20 +22,20 @@ public class UserInputField extends Pane {
 	public Map<String, Command> commands = new HashMap<>();
 
 	public UserInputField(UserOutputArea output) {
-		input = new TextField();
+		this.input = new TextField();
 		input.setPrefHeight(50);
 		input.setPrefWidth(1200);
-		input.setFont(gameInputFieldFont);
+		input.setFont(this.gameInputFieldFont);
 		input.clear();
 		input.setStyle("-fx-control-inner-background: #000;" + "-fx-display-focuse: none;" + "-fx-border-color: #fff;");
 		input.setOnAction(e -> {
-			inputText = input.getText();
+			this.inputText = input.getText();
 			input.clear();
-			onUserInput(inputText, output);
+			onUserInput(this.inputText, output);
 		});
 
-		input.setCursor(new ImageCursor(inputCursor));
-		getChildren().add(input);
+		input.setCursor(new ImageCursor(this.inputCursor));
+		getChildren().add(this.input);
 	}
 
 	public void onUserInput(String line, UserOutputArea output) {

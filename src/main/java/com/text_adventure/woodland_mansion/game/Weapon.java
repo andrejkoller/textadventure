@@ -13,7 +13,7 @@ public class Weapon extends Pane {
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public void setType(String type) {
@@ -21,7 +21,7 @@ public class Weapon extends Pane {
 	}
 
 	public int getDamage() {
-		return damage;
+		return this.damage;
 	}
 
 	public void setDamage(int damage) {
@@ -29,6 +29,5 @@ public class Weapon extends Pane {
 	}
 
 	public void printWeaponStats() {
-
 	}
 }

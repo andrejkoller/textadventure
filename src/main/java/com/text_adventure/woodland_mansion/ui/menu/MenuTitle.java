@@ -7,10 +7,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class MenuTitle extends Pane {
-	private Font font = Font.loadFont(getClass()
+	private final Font font = Font.loadFont(getClass()
 			.getResourceAsStream("/fonts/PixelifySans-Regular.ttf"), 48);
-
-	private Text mainTitle;
+	private final Text mainTitle;
 
 	public MenuTitle(String name) {
 		String spread = "";
@@ -19,10 +18,10 @@ public class MenuTitle extends Pane {
 			spread += c + " ";
 		}
 
-		mainTitle = new Text(spread);
-		mainTitle.setFont(font);
+		this.mainTitle = new Text(spread);
+		mainTitle.setFont(this.font);
 		mainTitle.setFill(Color.WHITE);
 		mainTitle.setTextAlignment(TextAlignment.CENTER);
-		getChildren().addAll(mainTitle);
+		getChildren().addAll(this.mainTitle);
 	}
 }

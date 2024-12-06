@@ -16,8 +16,6 @@ public class Room extends Pane {
 	private boolean hasBeginnerWeapon = true;
 	private boolean hasStrongWeapon = true;
 
-	Enemy enemy;
-
 	@SuppressWarnings("unused")
 	private int x;
 	@SuppressWarnings("unused")
@@ -43,26 +41,30 @@ public class Room extends Pane {
 	}
 
 	public boolean hasMonster() {
-		return hasMonsters;
+		return this.hasMonsters;
 	}
 
 	public void spawnMonster() {
-		hasMonsters = true;
+		this.hasMonsters = true;
 	}
 
 	public void killMonsters() {
-		hasMonsters = false;
+		this.hasMonsters = false;
 	}
 
 	public String getCurrentFloor(Player player) {
 		String floor;
 
-		if (player.getPositionXYZ(2) == 2) {
-			floor = "attic";
-		} else if (player.getPositionXYZ(2) == 1) {
-			floor = "ground floor";
-		} else {
-			floor = "cellar";
+		switch (player.getPositionXYZ(2)) {
+			case 2:
+				floor = "attic";
+				break;
+			case 1:
+				floor = "ground floor";
+				break;
+			default:
+				floor = "cellar";
+				break;
 		}
 
 		return floor;
@@ -79,45 +81,46 @@ public class Room extends Pane {
 		for (int i = 0; i < doorCheckArray.length; i++) {
 			if (doorCheckArray[i] == true) {
 				switch (i) {
-				case 0:
-					System.out.print("north");
-					break;
-				case 1:
-					System.out.print("east");
-					break;
-				case 2:
-					System.out.print("south");
-					break;
-				case 3:
-					System.out.print("west");
+					case 0:
+						System.out.print("north");
+						break;
+					case 1:
+						System.out.print("east");
+						break;
+					case 2:
+						System.out.print("south");
+						break;
+					case 3:
+						System.out.print("west");
 				}
 				firstdirection = i;
 				break;
 			}
 		}
+
 		for (int i = firstdirection + 1; i < doorCheckArray.length; i++) {
 
 			if (doorCheckArray[i] == true) {
 				System.out.print(", ");
 				switch (i) {
-				case 0:
-					System.out.print("north");
-					break;
-				case 1:
-					System.out.print("east");
-					break;
-				case 2:
-					System.out.print("south");
-					break;
-				case 3:
-					System.out.print("west");
+					case 0:
+						System.out.print("north");
+						break;
+					case 1:
+						System.out.print("east");
+						break;
+					case 2:
+						System.out.print("south");
+						break;
+					case 3:
+						System.out.print("west");
 				}
 			}
 		}
 
 		System.out.println(".");
 
-		if (playerlocation.getVerticalPath() != "none" && playerlocation.getVerticalPath() != null) {
+		if (!"none".equals(playerlocation.getVerticalPath()) && playerlocation.getVerticalPath() != null) {
 			System.out.println("You also see a  " + playerlocation.getVerticalPathType() + " that leads "
 					+ playerlocation.getVerticalPath() + ".");
 		}
@@ -130,7 +133,7 @@ public class Room extends Pane {
 	}
 
 	public int getRoomID() {
-		return roomID;
+		return this.roomID;
 	}
 
 	public void setRoomID(int a) {
@@ -138,74 +141,74 @@ public class Room extends Pane {
 	}
 
 	public String getVerticalPath() {
-		return verticalPath;
+		return this.verticalPath;
 	}
 
-	public void setVerticalPath(String vertical_Path) {
-		verticalPath = vertical_Path;
+	public void setVerticalPath(String vPath) {
+		this.verticalPath = vPath;
 	}
 
 	public String getVerticalPathType() {
-		return verticalPathType;
+		return this.verticalPathType;
 	}
 
-	public void setVerticalPathType(String verticalpath_type) {
-		this.verticalPathType = verticalpath_type;
+	public void setVerticalPathType(String vPathType) {
+		this.verticalPathType = vPathType;
 	}
 
 	public boolean isHasDoorNorth() {
-		return hasDoorNorth;
+		return this.hasDoorNorth;
 	}
 
-	public void setHasDoorNorth(boolean hasDoorNorth) {
-		this.hasDoorNorth = hasDoorNorth;
+	public void setHasDoorNorth(boolean hDoorNorth) {
+		this.hasDoorNorth = hDoorNorth;
 	}
 
 	public boolean isHasDoorEast() {
-		return hasDoorEast;
+		return this.hasDoorEast;
 	}
 
-	public void setHasDoorEast(boolean hasDoorEast) {
-		this.hasDoorEast = hasDoorEast;
+	public void setHasDoorEast(boolean hDoorEast) {
+		this.hasDoorEast = hDoorEast;
 	}
 
 	public boolean isHasDoorSouth() {
-		return hasDoorSouth;
+		return this.hasDoorSouth;
 	}
 
-	public void setHasDoorSouth(boolean hasDoorSouth) {
-		this.hasDoorSouth = hasDoorSouth;
+	public void setHasDoorSouth(boolean hDoorSouth) {
+		this.hasDoorSouth = hDoorSouth;
 	}
 
 	public boolean isHasDoorWest() {
-		return hasDoorWest;
+		return this.hasDoorWest;
 	}
 
-	public void setHasDoorWest(boolean hasDoorWest) {
-		this.hasDoorWest = hasDoorWest;
+	public void setHasDoorWest(boolean hDoorWest) {
+		this.hasDoorWest = hDoorWest;
 	}
 
 	public boolean isHasHealthItem() {
-		return hasHealthItem;
+		return this.hasHealthItem;
 	}
 
-	public void setHasHealthItem(boolean hasHealthItem) {
-		this.hasHealthItem = hasHealthItem;
+	public void setHasHealthItem(boolean healthItem) {
+		this.hasHealthItem = healthItem;
 	}
 
 	public boolean isHasBeginnerWeapon() {
-		return hasBeginnerWeapon;
+		return this.hasBeginnerWeapon;
 	}
 
-	public void setHasBeginnerWeapon(boolean hasBeginnerWeapon) {
-		this.hasBeginnerWeapon = hasBeginnerWeapon;
+	public void setHasBeginnerWeapon(boolean beginnerWeapon) {
+		this.hasBeginnerWeapon = beginnerWeapon;
 	}
 
 	public boolean isHasStrongWeapon() {
-		return hasStrongWeapon;
+		return this.hasStrongWeapon;
 	}
 
-	public void setHasStrongWeapon(boolean hasStrongWeapon) {
-		this.hasStrongWeapon = hasStrongWeapon;
+	public void setHasStrongWeapon(boolean strongWeapon) {
+		this.hasStrongWeapon = strongWeapon;
 	}
 }

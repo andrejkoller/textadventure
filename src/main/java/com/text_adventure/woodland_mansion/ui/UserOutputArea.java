@@ -6,23 +6,22 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 public class UserOutputArea extends Pane {
-	private Font gameOutputAreaFont = Font.loadFont(getClass()
+	private final Font gameOutputAreaFont = Font.loadFont(getClass()
 			.getResourceAsStream("/fonts/PixelifySans-Regular.ttf"), 28);
-
-	private TextArea output;
+	private final TextArea output;
 
 	public UserOutputArea() {
-		output = new TextArea();
+		this.output = new TextArea();
 		output.setPrefHeight(350);
 		output.setPrefWidth(1200);
 		output.setStyle("-fx-control-inner-background:#000;");
-		output.setFont(gameOutputAreaFont);
+		output.setFont(this.gameOutputAreaFont);
 		output.setCursor(Cursor.DEFAULT);
 		output.setEditable(true);
 		output.setMouseTransparent(true);
 		output.setFocusTraversable(false);
 		output.setWrapText(true);
-		getChildren().addAll(output);
+		getChildren().addAll(this.output);
 	}
 
 	public void printTextLine(String line) {

@@ -18,28 +18,28 @@ public class Main extends Application {
     private Stage stage;
     private Scene scene;
     private BorderPane root;
-
     UserCursor userCursor;
 
+    @SuppressWarnings("exports")
     @Override
-    public void start(@SuppressWarnings("exports") Stage primaryStage) throws InterruptedException {
-        stage = primaryStage;
+    public void start(Stage primaryStage) throws InterruptedException {
+        this.stage = primaryStage;
 
-        root = new BorderPane();
+        this.root = new BorderPane();
         root.setStyle("-fx-background-color: #000;");
-        windowIcon = new Image(getClass().getResource("/icons/mansion-icon.png").toExternalForm());
+        this.windowIcon = new Image(getClass().getResource("/icons/mansion-icon.png").toExternalForm());
 
-        scene = new Scene(root, WIDTH, HEIGHT);
+        this.scene = new Scene(this.root, WIDTH, HEIGHT);
         
-        userCursor = new UserCursor();
-        userCursor.setCursor(scene);
+        this.userCursor = new UserCursor();
+        userCursor.setCursor(this.scene);
 
-        Menu menu = new Menu(root, scene);
+        Menu menu = new Menu(this.root, this.scene);
 
-        primaryStage.getIcons().add(windowIcon);
+        primaryStage.getIcons().add(this.windowIcon);
         primaryStage.setTitle("Woodland Mansion");
         primaryStage.centerOnScreen();
-        primaryStage.setScene(scene);
+        primaryStage.setScene(this.scene);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         root.getChildren().add(menu);
