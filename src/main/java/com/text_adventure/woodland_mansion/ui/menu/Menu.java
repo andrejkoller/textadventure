@@ -15,9 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class Menu extends Pane {
+public class Menu extends StackPane {
 	private final HBox wrapMenuBox = new HBox();
 	private final HBox wrapCreditBox = new HBox();
 
@@ -38,13 +39,26 @@ public class Menu extends Pane {
 		MenuTitle menuTitle = createMenuTitle("Woodland Mansion");
 
 		MenuItem playButton = createMenuButton("Play", () -> handlePlayButton(root, scene));
+		playButton.setMaxWidth(USE_PREF_SIZE);
 		MenuItem creditButton = createMenuButton("Credits", () -> root.setCenter(wrapCreditBox));
+		creditButton.setMaxWidth(USE_PREF_SIZE);
 		MenuItem exitButton = createMenuButton("Exit", Platform::exit);
+		exitButton.setMaxWidth(USE_PREF_SIZE);
 
 		VBox menuBox = new VBox(40, menuTitle, playButton, creditButton, exitButton);
 		menuBox.setAlignment(Pos.CENTER);
 
-		if (!parentBox.getChildren().contains(menuBox)) {
+		if (parentBox instanceof VBox) {
+			((VBox) parentBox).setAlignment(Pos.CENTER);
+		} else if (parentBox instanceof HBox) {
+			((HBox) parentBox).setAlignment(Pos.CENTER);
+		}
+
+		if (parentBox instanceof StackPane) {
+			StackPane.setAlignment(menuBox, Pos.CENTER);
+		}
+
+		if (parentBox != null && !parentBox.getChildren().contains(menuBox)) {
 			parentBox.getChildren().addAll(menuBox);
 		}
 	}
@@ -76,8 +90,8 @@ public class Menu extends Pane {
 		VBox creditsDesignerBox = createMenuItems(creditsDesignerData, "Saschinka");
 
 		MenuItem backButton = new MenuItem("Back");
+		backButton.setMaxWidth(USE_PREF_SIZE);
 		backButton.setOnMouseClicked(e -> root.setCenter(wrapMenuBox));
-		creditsDesignerBox.getChildren().add(backButton);
 
 		VBox creditsProgramBox = new VBox(20, creditProgramTitle, creditsProgrammerBox);
 		creditsProgramBox.setAlignment(Pos.CENTER);
@@ -88,7 +102,7 @@ public class Menu extends Pane {
 		HBox wrapDesignBox = new HBox(creditsDesignBox);
 		wrapDesignBox.setAlignment(Pos.CENTER);
 
-		VBox wrapCreditsBox = new VBox(60, creditsProgramBox, wrapDesignBox);
+		VBox wrapCreditsBox = new VBox(60, creditsProgramBox, wrapDesignBox, backButton);
 		wrapCreditsBox.setAlignment(Pos.CENTER);
 
 		if (!parentBox.getChildren().contains(wrapCreditsBox)) {
@@ -109,6 +123,7 @@ public class Menu extends Pane {
 
 		for (String name : names) {
 			MenuItem item = new MenuItem(name);
+			item.setMaxWidth(USE_PREF_SIZE);
 			dataList.add(item);
 			box.getChildren().add(item);
 		}
