@@ -16,15 +16,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class GameOver extends Pane {
-	private final VBox titleBox = new VBox();
 	private final HBox wrapTitleBox = new HBox();
-
-	private final HBox restartTitleBox = new HBox();
-	private final HBox buttonBox = new HBox();
 	private final VBox wrapRestartTitleButtonBox = new VBox();
-
 	private final ObservableList<MenuItem> gameOverData = FXCollections.observableArrayList();
-
 	private Delay delay;
 
 	public GameOver(BorderPane root, Scene scene) {
@@ -33,7 +27,7 @@ public class GameOver extends Pane {
 		wrapRestartTitleButtonBox.setSpacing(40);
 
 		initGameOverTitle(this.wrapTitleBox);
-		initRestartGameNotification(this.wrapRestartTitleButtonBox, root, scene, null);
+		initRestartGameNotification(this.wrapRestartTitleButtonBox, root, scene);
 
 		root.setTop(wrapTitleBox);
 		root.setCenter(wrapRestartTitleButtonBox);
@@ -41,21 +35,24 @@ public class GameOver extends Pane {
 
 	public final void initGameOverTitle(Pane parentBox) {
 		MenuTitle title = new MenuTitle("GAME OVER");
+		VBox titleBox = new VBox();
 		titleBox.setAlignment(Pos.BASELINE_CENTER);
 		titleBox.getChildren().add(title);
 		parentBox.getChildren().addAll(titleBox);
 	}
 
-	public final void initRestartGameNotification(Pane parentBox, BorderPane root, Scene scene, Room[][][] room) {
+	public final void initRestartGameNotification(Pane parentBox, BorderPane root, Scene scene) {
 		MenuTitle restartTitle = new MenuTitle("Restart?");
+		restartTitle.setMaxWidth(USE_PREF_SIZE);
+		VBox restartTitleBox = new VBox();
 		restartTitleBox.setAlignment(Pos.CENTER);
 		restartTitleBox.getChildren().addAll(restartTitle);
 
 		MenuItem declineButton = new MenuItem("No");
 		declineButton.setOnMouseClicked(e -> {
-			getChildren().clear();
+			root.getChildren().clear();
 			Menu menu = new Menu(root, scene);
-			root.getChildren().addAll(menu);
+			root.getChildren().add(menu);
 		});
 
 		gameOverData.addAll(declineButton);
@@ -69,15 +66,15 @@ public class GameOver extends Pane {
 				root.getChildren().clear();
 				Game game = new Game(root, scene);
 				loadCursor.setCursor(scene);
-				root.getChildren().addAll(game);
+				root.getChildren().add(game);
 			});
 		});
 
-		gameOverData.addAll(acceptButton);
+		gameOverData.addAll(declineButton, acceptButton);
 
-		buttonBox.getChildren().addAll(acceptButton, declineButton);
+		HBox buttonBox = new HBox(80, acceptButton, declineButton);
 		buttonBox.setAlignment(Pos.CENTER);
-		buttonBox.setSpacing(80);
-		parentBox.getChildren().addAll(this.restartTitleBox, buttonBox);
+
+		parentBox.getChildren().addAll(restartTitleBox, buttonBox);
 	}
 }
