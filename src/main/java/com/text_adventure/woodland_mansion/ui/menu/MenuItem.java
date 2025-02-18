@@ -16,10 +16,7 @@ public class MenuItem extends Pane {
 		mainMenuText.setFont(this.font);
 		mainMenuText.setFill(Color.WHITE);
 		mainMenuText.setTextAlignment(TextAlignment.CENTER);
-		getChildren().add(this.mainMenuText);
-	}
 
-	public Text getMenuItemText() {
-		return this.mainMenuText;
+		getChildren().add(this.mainMenuText);
 	}
 }

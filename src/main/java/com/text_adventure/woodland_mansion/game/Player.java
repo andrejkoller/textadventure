@@ -3,9 +3,7 @@ package com.text_adventure.woodland_mansion.game;
 import com.text_adventure.woodland_mansion.ui.UserInputField;
 import com.text_adventure.woodland_mansion.ui.UserOutputArea;
 
-import javafx.scene.layout.Pane;
-
-public class Player extends Pane {
+public class Player {
 	@SuppressWarnings("FieldMayBeFinal")
 	private int[] positionXYZ = { 0, 0, 0 };
 

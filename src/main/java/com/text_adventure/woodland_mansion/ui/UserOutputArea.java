@@ -14,7 +14,7 @@ public class UserOutputArea extends Pane {
 		this.output = new TextArea();
 		output.setPrefHeight(350);
 		output.setPrefWidth(1200);
-		output.setStyle("-fx-control-inner-background:#000;");
+		output.setStyle("-fx-control-inner-background: #000000;");
 		output.setFont(this.gameOutputAreaFont);
 		output.setCursor(Cursor.DEFAULT);
 		output.setEditable(true);

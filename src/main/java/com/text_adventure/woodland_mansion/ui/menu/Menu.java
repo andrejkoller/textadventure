@@ -45,7 +45,10 @@ public class Menu extends StackPane {
 		MenuItem exitButton = createMenuButton("Exit", Platform::exit);
 		exitButton.setMaxWidth(USE_PREF_SIZE);
 
-		VBox menuBox = new VBox(40, menuTitle, playButton, creditButton, exitButton);
+		VBox menuItemBox = new VBox(40, playButton, creditButton, exitButton);
+		menuItemBox.setAlignment(Pos.CENTER);
+
+		VBox menuBox = new VBox(80, menuTitle, menuItemBox);
 		menuBox.setAlignment(Pos.CENTER);
 
 		if (parentBox instanceof VBox) {
@@ -83,26 +86,23 @@ public class Menu extends StackPane {
 	}
 
 	public final void initCredits(Pane parentBox, BorderPane root) {
-		MenuTitle creditProgramTitle = createMenuTitle("Programmer");
+		MenuTitle creditProgrammerTitle = createMenuTitle("Programmer");
 		VBox creditsProgrammerBox = createMenuItems(creditsProgrammerData, "Andrej", "Maxi");
 
-		MenuTitle creditDesignTitle = createMenuTitle("Designer");
+		MenuTitle creditDesignerTitle = createMenuTitle("Designer");
 		VBox creditsDesignerBox = createMenuItems(creditsDesignerData, "Saschinka");
 
 		MenuItem backButton = new MenuItem("Back");
 		backButton.setMaxWidth(USE_PREF_SIZE);
 		backButton.setOnMouseClicked(e -> root.setCenter(wrapMenuBox));
 
-		VBox creditsProgramBox = new VBox(20, creditProgramTitle, creditsProgrammerBox);
+		VBox creditsProgramBox = new VBox(80, creditProgrammerTitle, creditsProgrammerBox);
 		creditsProgramBox.setAlignment(Pos.CENTER);
 
-		VBox creditsDesignBox = new VBox(20, creditDesignTitle, creditsDesignerBox);
+		VBox creditsDesignBox = new VBox(80, creditDesignerTitle, creditsDesignerBox);
 		creditsDesignBox.setAlignment(Pos.CENTER);
 
-		HBox wrapDesignBox = new HBox(creditsDesignBox);
-		wrapDesignBox.setAlignment(Pos.CENTER);
-
-		VBox wrapCreditsBox = new VBox(60, creditsProgramBox, wrapDesignBox, backButton);
+		VBox wrapCreditsBox = new VBox(60, creditsProgramBox, creditsDesignBox, backButton);
 		wrapCreditsBox.setAlignment(Pos.CENTER);
 
 		if (!parentBox.getChildren().contains(wrapCreditsBox)) {

@@ -8,9 +8,8 @@ import com.text_adventure.woodland_mansion.helper.Delay;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 
-public class UserCursor extends Pane {
+public class UserCursor {
 	private Image cursorIconSelect;
 	private Image cursorIconTap;
 	private Image inputCursor;

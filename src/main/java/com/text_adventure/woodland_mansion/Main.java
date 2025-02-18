@@ -26,7 +26,7 @@ public class Main extends Application {
         this.stage = primaryStage;
 
         this.root = new BorderPane();
-        root.setStyle("-fx-background-color: #000;");
+        root.setStyle("-fx-background-color: #000000;");
         this.windowIcon = new Image(getClass().getResource("/icons/mansion-icon.png").toExternalForm());
 
         this.scene = new Scene(this.root, WIDTH, HEIGHT);

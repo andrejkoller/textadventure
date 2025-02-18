@@ -27,7 +27,7 @@ public class UserInputField extends Pane {
 		input.setPrefWidth(1200);
 		input.setFont(this.gameInputFieldFont);
 		input.clear();
-		input.setStyle("-fx-control-inner-background: #000;" + "-fx-display-focuse: none;" + "-fx-border-color: #fff;");
+		input.setStyle("-fx-control-inner-background: #000000;" + "-fx-display-focus: none;" + "-fx-border-color: #ffffff;");
 		input.setOnAction(e -> {
 			this.inputText = input.getText();
 			input.clear();
