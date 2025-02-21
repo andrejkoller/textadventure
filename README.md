@@ -1,7 +1,4 @@
 <div align="left">
-  <h1>Woodland Mansion 🌲🏚️</h1>
-</div>
-<div align="left">
   <h3>ABOUT THIS GAME</h3>
 </div>
 <div align="left">
